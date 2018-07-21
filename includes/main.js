@@ -33,10 +33,13 @@ function initializeApp(){
 
 	}
 	sim = new Restaurant( mexicanFood );
-
+	sim.open();
 	sim.addCustomer('Rebecca', 8, 20);
 	sim.addCustomer('Sudip', 5, 20);
 	sim.addCustomer('Jake', 1, 20);
+	sim.addCustomer('Patricia', 4, 20);
+	sim.addCustomer('Sylvester', 6, 20);
+
 }
 
 initializeApp();

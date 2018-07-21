@@ -8,14 +8,14 @@ class Restaurant{
 		this.availableChefs = this.maximumChefs;
 		this.updateTimer = null;
 	}
-	openRestaraunt(){
+	open(){
 		//check if the updateTimer is not null.  if it isn't, the timer is running and needs to be stopped
 			//stop the timer by calling closeRestaurant
 		//use setInterval to start a timer that runs every 1 second, and calls checkQueue
 			//don't forget to bind the call or it won't work right
 			//don't forget to store the result of setInterval into your updateTimer for later
 	}
-	closeRestaraunt(){
+	close(){
 		//clearInterval on the updateTimer
 		//set updateTimer to null so it 
 	}
@@ -24,7 +24,8 @@ class Restaurant{
 		check if an order is in the orderQueue
 			if there is, check if there is an available chef
 				if there is, reduce the availableChefs by 1
-				and call removeFromQueue to remove it from the pending orders
+				and call startCookingOrder to remove it from the pending orders
+				don't forget to send it the order to remove
 		*/
 	}
 	addCustomer( name, hungerLevel, cash ){
@@ -44,17 +45,18 @@ class Restaurant{
 	addToQueue( item, customer){
 		debugger;
 		var orderObject = { item: item, customer: customer};
-		var randomTime =  Math.random() * (item.cookingTime.max - item.cookingTime.min )  + item.cookingTime.min;
-		randomTime *= 1000;
 		this.orderQueue.push( orderObject );
-		console.log(`*********${completedItem.item.name} has been added to the queue for  ${completedItem.customer.name}!`);
+		console.log(`*********${item.name} has been added to the queue for  ${customer.name}!`);
 	}
 	startCookingOrder(order){
-		console.log(`*********starting on order of ${completedItem.item.name} for ${completedItem.customer.name}!`);
+		console.log(`*********starting on order of ${order.item.name} for ${order.customer.name}!`);
+		var randomTime =  Math.random() * (item.cookingTime.max - item.cookingTime.min )  + item.cookingTime.min;
+		randomTime *= 1000;
 		setTimeout( this.finishCookingOrder.bind(this,orderObject), randomTime );
+		//reduce the available number of chefs by 1
 	}
 	finishCookingOrder(order){
-		console.log(`*********${completedItem.item.name} is ready for ${completedItem.customer.name}!`);
+		console.log(`*********${order.item.name} is ready for ${order.customer.name}!`);
 		//increase the availableChefs count by 1
 	}
 	removeFromQueue( completedItem ){

@@ -10,23 +10,39 @@ class Restaurant{
 	}
 	open(){
 		//check if the updateTimer is not null.  if it isn't, the timer is running and needs to be stopped
-			//stop the timer by calling closeRestaurant
+		if( this.updateTimer !== null) {
+				//stop the timer by calling closeRestaurant
+			closeRestaurant();
+		}
+			
 		//use setInterval to start a timer that runs every 1 second, and calls checkQueue
+			this.updateTimer = setInterval( this.checkQueue.bind(this), 1000);
 			//don't forget to bind the call or it won't work right
 			//don't forget to store the result of setInterval into your updateTimer for later
 	}
 	close(){
 		//clearInterval on the updateTimer
+		clearInterval(this.updateTimer);
 		//set updateTimer to null so it 
+		this.updateTimer = null;
 	}
 	checkQueue(){
-		/*
-		check if an order is in the orderQueue
-			if there is, check if there is an available chef
-				if there is, reduce the availableChefs by 1
-				and call startCookingOrder to remove it from the pending orders
-				don't forget to send it the order to remove
-		*/
+		
+		// check if an order is in the orderQueue
+		if( this.orderQueue.length > 0) {
+			// if there is, reduce the availableChefs by 1
+				// 	if there is, check if there is an available chef
+			if (this.availableChefs > 0) {
+				this.availableChefs--;
+				this.startCookingOrder(this.orderQueue[0]);
+			}
+
+		}
+		// 	if there is, check if there is an available chef
+		// 		if there is, reduce the availableChefs by 1
+		// 		and call startCookingOrder to remove it from the pending orders
+		// 		don't forget to send it the order to remove
+		
 	}
 	addCustomer( name, hungerLevel, cash ){
 		var customer = new Customer(name, hungerLevel, cash, this);
@@ -54,10 +70,12 @@ class Restaurant{
 		randomTime *= 1000;
 		setTimeout( this.finishCookingOrder.bind(this,orderObject), randomTime );
 		//reduce the available number of chefs by 1
+		this.availableChefs--;
 	}
 	finishCookingOrder(order){
 		console.log(`*********${order.item.name} is ready for ${order.customer.name}!`);
 		//increase the availableChefs count by 1
+		this.availableChefs++;
 	}
 	removeFromQueue( completedItem ){
 		var itemIndex = this.orderQueue.indexOf( completedItem );

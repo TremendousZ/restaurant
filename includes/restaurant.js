@@ -13,6 +13,7 @@ class Restaurant{
 		//check if the updateTimer is not null.  if it isn't, the timer is running and needs to be stopped
 		if( this.updateTimer !== null) {
 				//stop the timer by calling closeRestaurant
+				console.log("Closing Time");
 			closeRestaurant();
 		}
 			
@@ -31,6 +32,7 @@ class Restaurant{
 		
 		// check if an order is in the orderQueue
 		if( this.orderQueue.length > 0) {
+			
 			// if there is, reduce the availableChefs by 1
 				// 	if there is, check if there is an available chef
 			if (this.availableChefs > 0) {
@@ -71,7 +73,7 @@ class Restaurant{
 		debugger;
 		var randomTime =  Math.random() * (order.item.cookingTime.max - order.item.cookingTime.min )  + order.item.cookingTime.min;
 		randomTime *= 1000;
-		setTimeout( order.finishCookingOrder, randomTime );
+		setTimeout( this.finishCookingOrder(order), randomTime );
 		//reduce the available number of chefs by 1
 		this.availableChefs--;
 	}

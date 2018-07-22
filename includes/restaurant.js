@@ -9,6 +9,7 @@ class Restaurant{
 		this.updateTimer = null;
 	}
 	open(){
+		debugger;
 		//check if the updateTimer is not null.  if it isn't, the timer is running and needs to be stopped
 		if( this.updateTimer !== null) {
 				//stop the timer by calling closeRestaurant
@@ -35,6 +36,7 @@ class Restaurant{
 			if (this.availableChefs > 0) {
 				this.availableChefs--;
 				this.startCookingOrder(this.orderQueue[0]);
+				this.orderQueue.shift();
 			}
 
 		}
@@ -59,20 +61,23 @@ class Restaurant{
 		this.addToQueue(itemDesired, customer);
 	}
 	addToQueue( item, customer){
-		debugger;
+		
 		var orderObject = { item: item, customer: customer};
 		this.orderQueue.push( orderObject );
 		console.log(`*********${item.name} has been added to the queue for  ${customer.name}!`);
 	}
 	startCookingOrder(order){
 		console.log(`*********starting on order of ${order.item.name} for ${order.customer.name}!`);
-		var randomTime =  Math.random() * (item.cookingTime.max - item.cookingTime.min )  + item.cookingTime.min;
+		debugger;
+		var randomTime =  Math.random() * (order.item.cookingTime.max - order.item.cookingTime.min )  + order.item.cookingTime.min;
 		randomTime *= 1000;
-		setTimeout( this.finishCookingOrder.bind(this,orderObject), randomTime );
+		setTimeout( order.finishCookingOrder, randomTime );
 		//reduce the available number of chefs by 1
 		this.availableChefs--;
 	}
 	finishCookingOrder(order){
+		debugger;
+		
 		console.log(`*********${order.item.name} is ready for ${order.customer.name}!`);
 		//increase the availableChefs count by 1
 		this.availableChefs++;

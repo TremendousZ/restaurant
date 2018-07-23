@@ -14,7 +14,7 @@ class Restaurant{
 		if( this.updateTimer !== null) {
 				//stop the timer by calling closeRestaurant
 				console.log("Closing Time");
-			closeRestaurant();
+			this.close();
 		}
 			
 		//use setInterval to start a timer that runs every 1 second, and calls checkQueue
@@ -39,6 +39,8 @@ class Restaurant{
 				this.availableChefs--;
 				this.startCookingOrder(this.orderQueue[0]);
 				this.orderQueue.shift();
+			} else {
+				return;
 			}
 
 		}
@@ -75,7 +77,7 @@ class Restaurant{
 		randomTime *= 1000;
 		setTimeout( this.finishCookingOrder(order), randomTime );
 		//reduce the available number of chefs by 1
-		this.availableChefs--;
+		// this.availableChefs--;
 	}
 	finishCookingOrder(order){
 		debugger;
